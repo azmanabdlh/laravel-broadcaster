@@ -5554,9 +5554,23 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 window.io = __webpack_require__(/*! socket.io-client */ "./node_modules/socket.io-client/lib/index.js");
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_1__["default"]({
   broadcaster: 'socket.io',
-  host: window.location.hostname + ':6001'
+  host: window.location.hostname + ':6001',
+  authorizer: function authorizer(channel, options) {
+    return {
+      authorize: function authorize(socketId, callback) {
+        axios.post('/api/broadcasting/auth', {
+          socket_id: socketId,
+          channel_name: channel.name
+        }).then(function (response) {
+          callback(false, response.data);
+        })["catch"](function (error) {
+          callback(true, error);
+        });
+      }
+    };
+  }
 });
-window.Apline = alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"];
+window.Alpine = alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"];
 alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"].start();
 
 /***/ }),

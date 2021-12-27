@@ -23,3 +23,6 @@ Route::get('/event', function () {
 });
 
 Route::view('/broadcaster', 'broadcaster');
+
+
+require __DIR__.'/auth.php';
