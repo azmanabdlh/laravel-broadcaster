@@ -26,5 +26,5 @@ window.Echo = new Echo({
     host: window.location.hostname + ':6001'
 });
 
-window.Apline = Alpine;
+window.Alpine = Alpine;
 Alpine.start();
